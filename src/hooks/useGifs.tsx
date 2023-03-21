@@ -1,8 +1,14 @@
 import { useState } from 'react';
+import { Platform } from 'react-native';
 import { gifAffinityApi } from '../api/gifAffinityApi';
 import { Gif } from '../interfaces/interfaces';
+import DeviceInfo from 'react-native-device-info';
 
-export const SERVER = 'localhost:4000';
+// export const SERVER = 'localhost:4000';
+
+const iosUrl = 'localhost:4000';
+const androidUrl = '10.0.2.2:4000';
+const SERVER = Platform.OS === 'android' && DeviceInfo.isEmulatorSync() ? androidUrl : iosUrl;
 
 export const useGifs = (search: string) => {
 

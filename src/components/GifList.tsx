@@ -4,6 +4,7 @@ import React from 'react';
 import { FlatList, Text, View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 import { Gif } from '../interfaces/interfaces';
+import { Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 
@@ -14,6 +15,7 @@ interface Props {
   nextPage: () => Promise<void>;
   gifs: Gif[];
 }
+const { width } = Dimensions.get('window');
 
 export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) => {
 
@@ -26,6 +28,7 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
 
   return (
     <View style={{...styles.gifList}}>
+
       <FlatList
         data= { gifs }
         keyExtractor= {( meme ) => meme.id}
@@ -38,14 +41,16 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
           </Text>
         )}
         renderItem= {( {item} ) => (
-          <FastImage
-          style= {styles.gifImg}
-            source={{
-              uri: `${item.url}`,
-              priority: FastImage.priority.high,
-            }}
-            resizeMode= { FastImage.resizeMode.cover}
-          />
+          <View>
+            <FastImage
+            style= {styles.gifImg}
+              source={{
+                uri: `${item.url}`,
+                priority: FastImage.priority.high,
+              }}
+              resizeMode= { FastImage.resizeMode.cover}
+            />
+          </View>
         )}
 
         onEndReached= {nextPage}
@@ -65,14 +70,15 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
 
 const styles = StyleSheet.create({
     gifList: {
+      flex: 1,
+      width: width,
       marginHorizontal: 20,
       marginVertical: 20,
-      paddingBottom: 200,
     },
     gifImg: {
       marginHorizontal: 20,
       marginVertical: 10,
-      width: 130,
-      height: 130,
+      width: width / 2 - 60,
+      aspectRatio: 1,
     },
 });

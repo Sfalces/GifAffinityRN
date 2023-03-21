@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View } from 'react-native';
 import { GifList } from '../components/GifList';
@@ -17,7 +18,7 @@ export const HomeScreen = () => {
   const {gifs, loadGifs, nextPage} = useGifs(debouncedValue);
 
   return (
-    <View>
+    <View style= {{flex: 1}}>
       <Header />
       <SearchBar
         search={ search }
