@@ -1,28 +1,32 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { FlatList, Text, View, ActivityIndicator, StyleSheet } from 'react-native';
-import { useEffect } from 'react';
-import { Gif } from '../interfaces/interfaces';
 import { Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { Gif } from '../../../../core/domain/Gif';
 
+export interface GifListRef {
+  GoTop: () => void;
+}
 
 interface Props {
-  search: string;
-  debouncedValue: string;
-  loadGifs: () => Promise<void>;
-  nextPage: () => Promise<void>;
   gifs: Gif[];
+  onNextPage: () => void;
+  debouncedText: string;
 }
 const { width } = Dimensions.get('window');
 
-export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) => {
+export const GifList = forwardRef(({  gifs, onNextPage, debouncedText  }: Props, ref) => {
 
+  const flatListRef = useRef<FlatList>(null);
 
-  useEffect(() => {
-    loadGifs();
-  }, [debouncedValue]);
+  const GoTop = () =>{
+    flatListRef.current?.scrollToIndex({ index: 0 });
+  };
+
+  useImperativeHandle(ref , () => ({
+      GoTop,
+  }));
 
   console.log(gifs.length);
 
@@ -30,11 +34,13 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
     <View style={{...styles.gifList}}>
 
       <FlatList
+        ref={flatListRef}
         data= { gifs }
         keyExtractor= {( meme ) => meme.id}
         showsVerticalScrollIndicator= {false}
         showsHorizontalScrollIndicator= {false}
         numColumns= {2}
+        extraData={debouncedText}
         ListHeaderComponent={(
           <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
             Listado de Gifs
@@ -43,6 +49,7 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
         renderItem= {( {item} ) => (
           <View>
             <FastImage
+            testID={`gifItem:${item.id}`}
             style= {styles.gifImg}
               source={{
                 uri: `${item.url}`,
@@ -53,7 +60,7 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
           </View>
         )}
 
-        onEndReached= {nextPage}
+        onEndReached= {onNextPage}
         onEndReachedThreshold={0.4}
 
         ListFooterComponent={
@@ -66,7 +73,7 @@ export const GifList = ({ debouncedValue, loadGifs, nextPage, gifs  }: Props) =>
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
     gifList: {

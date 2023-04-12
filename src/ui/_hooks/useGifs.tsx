@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Platform } from 'react-native';
-import { gifAffinityApi } from '../api/gifAffinityApi';
-import { Gif } from '../interfaces/interfaces';
+import { gifAffinityApi } from '../../core/shared/api/gifAffinityApi';
 import DeviceInfo from 'react-native-device-info';
+import { Gif } from '../../core/domain/Gif';
 
 // export const SERVER = 'localhost:4000';
 

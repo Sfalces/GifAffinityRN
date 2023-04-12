@@ -7,7 +7,8 @@ export const Header = () => {
     style={styles.headerImg}
     >
       <Image
-        source={require('../assets/GuifAffinityLogo.png')}
+        source={require('../ui/_assets/GuifAffinityLogo.png')}
+        testID={'logo'}
       />
     </View>
   );

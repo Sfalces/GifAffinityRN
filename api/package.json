@@ -14,8 +14,8 @@
     "build:type-check": "tsc --noEmit",
     "build:clean": "rimraf dist",
     "build:run-babel-node": "babel src -d dist --ignore=\"./src/**/*.spec.ts\" --extensions \".ts\"",
-    "test": "jest --colors",
-    "test:watch": "jest --watch --colors"
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watchAll"
   },
   "author": "BikoSchool",
   "license": "ISC",
@@ -45,5 +45,8 @@
     "rimraf": "^3.0.2",
     "supertest": "^6.3.0",
     "typescript": "^4.8.4"
+  },
+  "jest": {
+    "configPath": "./jest-config.json"
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { Gif } from '../interfaces/interfaces';
+import { Gif } from '../../../../core/domain/Gif';
 
   interface Props {
     gif: Gif;

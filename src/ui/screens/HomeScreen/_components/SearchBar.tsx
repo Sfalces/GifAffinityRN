@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import  Icon  from 'react-native-vector-icons/Ionicons';
+// import  Icon  from 'react-native-vector-icons/Ionicons';
 
 
 interface Props {
-  search: string;
-  onSearch: React.Dispatch<React.SetStateAction<string>>;
+  text: string;
+  onSearch: (text: string) => void;
 }
 
-export const SearchBar = ({ search, onSearch }: Props) => {
+export const SearchBar = ({ text, onSearch }: Props) => {
 
   const cleanSearchBar = () =>{
     onSearch('');
@@ -19,21 +19,22 @@ export const SearchBar = ({ search, onSearch }: Props) => {
       style={styles.textBackground}
     >
       <TextInput
-        value={search}
+        value={text}
         placeholder="¿Que quieres buscar?"
         onChangeText={onSearch}
         style={styles.textInput}
         autoCapitalize="none"
         autoCorrect={false}
+        testID={'searchBar'}
       />
       <TouchableOpacity
         onPress={() => cleanSearchBar()}
       >
-      <Icon
+      {/* <Icon
           name= "close-outline"
           color= "grey"
           size={30}
-        />
+        /> */}
       </TouchableOpacity>
     </View>
   );
