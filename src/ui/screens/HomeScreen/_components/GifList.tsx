@@ -28,8 +28,6 @@ export const GifList = forwardRef(({  gifs, onNextPage, debouncedText  }: Props,
       GoTop,
   }));
 
-  console.log(gifs.length);
-
   return (
     <View style={{...styles.gifList}}>
 

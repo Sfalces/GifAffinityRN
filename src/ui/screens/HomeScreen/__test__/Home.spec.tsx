@@ -30,8 +30,8 @@ describe('Home', () => {
     jest.spyOn(gifAffinityApi, 'get').mockResolvedValue({ data: gifs });
 
     renderHome();
-    const logo = await screen.findByTestId(/logo/);
 
+    const logo = await screen.findByTestId(/logo/);
     expect(logo).toBeDefined();
   });
   it('searchBar is visible', async () => {
@@ -41,7 +41,6 @@ describe('Home', () => {
     renderHome();
 
     const searchBar = await screen.findByTestId(/searchBar/);
-
     expect(searchBar).toBeDefined();
   });
   it('should render a title for the gif list', async () => {
@@ -51,7 +50,6 @@ describe('Home', () => {
     renderHome();
 
     const title =  await screen.findByText(/Listado de gifs/i);
-
     expect(title).toBeDefined();
   });
   it('should render a gif list', async () => {
@@ -61,7 +59,6 @@ describe('Home', () => {
     renderHome();
 
     const gif =  await screen.findAllByTestId(/gifItem:*/i);
-
     expect(gif).toHaveLength(8);
   });
   it('should render the first gif of gif list', async () => {
@@ -71,7 +68,6 @@ describe('Home', () => {
     renderHome();
 
     const gif = await screen.findByTestId(/gifItem:git-merge1/i);
-
     expect(gif).toBeDefined();
   });
 });

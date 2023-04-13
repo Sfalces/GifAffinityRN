@@ -12,7 +12,6 @@ describe('Gif apiRepository', () => {
   it('should call get method', async () => {
 
     jest.spyOn(DeviceInfo, 'isEmulatorSync').mockReturnValue(true);
-
     jest.spyOn(gifAffinityApi, 'get').mockResolvedValue({ data: gifs });
 
     await apiGifRepository.searchGifs('dog', 10);
@@ -21,8 +20,7 @@ describe('Gif apiRepository', () => {
   });
   it('should call get method using android url', async () => {
 
-    jest.spyOn(gifAffinityApi, 'get');
-
+    jest.spyOn(gifAffinityApi, 'get').mockResolvedValue({ data: gifs });
     jest.spyOn(DeviceInfo, 'isEmulatorSync').mockReturnValue(true);
 
     await apiGifRepository.searchGifs('dog', 10);
@@ -32,8 +30,7 @@ describe('Gif apiRepository', () => {
   });
   it('should call get method using IOS url', async () => {
 
-    jest.spyOn(gifAffinityApi, 'get');
-
+    jest.spyOn(gifAffinityApi, 'get').mockResolvedValue({ data: gifs });
     jest.spyOn(DeviceInfo, 'isEmulatorSync').mockReturnValue(false);
 
     await apiGifRepository.searchGifs('dog', 10);
